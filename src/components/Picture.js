@@ -3,16 +3,14 @@ import axios from 'axios';
 
 class Picture extends Component {
   state = {
-
+    data: {}
   }
 
   componentDidMount() {
-    axios.get('http://localhost:3001/').then(resp => {
-      console.log(resp.data);
+    axios.get(`http://localhost:3001/pictures/${this.props.match.params.id}`).then(resp => {
       this.setState({
         data: resp.data
       })
-      console.log(this.state.data);
     })
   }
 
@@ -28,9 +26,11 @@ class Picture extends Component {
           <div className="switchPictureButton">
 
           </div>
+
           <div id="picture">
-            <img src="http://placehold.it/200/200" alt="" />
+            <img src={this.state.data.url} alt="" />
           </div>
+
           <div className="switchPictureButton">
 
           </div>

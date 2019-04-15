@@ -4,15 +4,25 @@ import axios from 'axios';
 
 class Album extends Component {
   state = {
-    data: []
+    data: [],
+    pictures: []
   }
 
   componentDidMount() {
-    axios.get(`http://localhost:3001/albums/${this.props.match.params.id}?_embed=pictures`).then(resp => {
+    axios.get(`http://localhost:3001/albums?_embed=pictures`).then(resp => {
       this.setState({
-        data: resp.data
+        data: resp.data,
+        pictures: resp.data[this.props.match.params.id - 1].pictures
       })
-      console.log(this.state.data)
+    })
+  }
+
+  componentWillReceiveProps() {
+    axios.get(`http://localhost:3001/albums?_embed=pictures`).then(resp => {
+      this.setState({
+        data: resp.data,
+        pictures: resp.data[this.props.match.params.id - 1].pictures
+      })
     })
   }
   
@@ -31,44 +41,23 @@ class Album extends Component {
                 this.state.data.map(function(album) {
                   return (
                     <li key={"albumLink" + album.id}>
-                      <Link to={"/album/" + album.id}></Link>
+                      <Link to={"/album/" + album.id}>{album.title}</Link>
                     </li>
                   )
                 })
               }
-              {/* <li><Link to="/album/1">Architecture</Link></li>
-              <li><Link to="/album/2">Nature</Link></li>
-              <li><Link to="/album/3">Animals</Link></li>
-              <li><Link to="/album/4">Arts &amp; Culture</Link></li>
-              <li><Link to="/album/5">Food &amp; Drink</Link></li>
-              <li><Link to="/album/6">Textures &amp; Patterns</Link></li> */}
             </ul>
           </div>
           <div id="albumPicturesList">
-            <div className="pictureLinkContainer">
-              <img src="http://placehold.it/200/200" alt="" />
-              <h6>Pic 1</h6>
-            </div>
-            <div className="pictureLinkContainer">
-              <img src="http://placehold.it/200/200" alt="" />
-              <h6>Pic 2</h6>
-            </div>
-            <div className="pictureLinkContainer">
-              <img src="http://placehold.it/200/200" alt="" />
-              <h6>Pic 3</h6>
-            </div>
-            <div className="pictureLinkContainer">
-              <img src="http://placehold.it/200/200" alt="" />
-              <h6>Pic 4</h6>
-            </div>
-            <div className="pictureLinkContainer">
-              <img src="http://placehold.it/200/200" alt="" />
-              <h6>Pic 5</h6>
-            </div>
-            <div className="pictureLinkContainer">
-              <img src="http://placehold.it/200/200" alt="" />
-              <h6>Pic 6</h6>
-            </div>
+            {
+              this.state.pictures.map(function(picture) {
+                return (
+                  <div key={"picture" + picture.id} className="pictureLinkContainer" style={{backgroundImage: "url(" + picture.url + ")"}}>
+                    <Link to={"/picture/" + picture.id}>{picture.title}</Link>
+                  </div>
+                )
+              })
+            }
           </div>
         </div>
       </div>

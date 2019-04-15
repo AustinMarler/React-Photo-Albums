@@ -22,7 +22,7 @@ code {
 }
 
 /* Home Page styles */
-#homeHeader, #albumHeader {
+#homeHeader, #albumHeader, #pictureHeader {
   display: flex;
   justify-content: center;
   background-color: #1e90ff;
@@ -50,7 +50,6 @@ code {
   text-decoration: none;
   color: white;
   position: absolute;
-  bottom: 0;
 }
 
 /* Album Page styles */
@@ -87,6 +86,8 @@ code {
 #albumPicturesList {
   display: flex;
   flex-wrap: wrap;
+  position: relative;
+  width: 100%;
 }
 
 .pictureLinkContainer {
@@ -95,22 +96,22 @@ code {
   flex-direction: column;
   align-items: center;
   width: 33.33333%;
+  height: 200px;
   margin: 20px 0;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 
-.pictureLinkContainer img {
-  cursor: pointer;
-}
-
-.pictureLinkContainer h6 {
-  width: 100px;
-  text-align: center;
+.pictureLinkContainer a {
+  background-color: rgba(127, 127, 127, 0.7);
+  text-decoration: none;
   color: white;
-  position: absolute;
+  position: relative;
   bottom: 0;
 }
 
 /* Picture Page styles */
-#pictureHeader {
-
+#picture img {
+  width: 100vw;
 }
