@@ -4,11 +4,16 @@ import axios from 'axios';
 
 class Album extends Component {
   state = {
-
+    data: []
   }
 
   componentDidMount() {
-
+    axios.get(`http://localhost:3001/albums/${this.props.match.params.id}?_embed=pictures`).then(resp => {
+      this.setState({
+        data: resp.data
+      })
+      console.log(this.state.data)
+    })
   }
   
   render() {
@@ -22,12 +27,21 @@ class Album extends Component {
         <div id="albumLowerContainer">
           <div id="albumLinksList">
             <ul>
-              <li><Link to="/album1">Architecture</Link></li>
-              <li><Link to="/album2">Nature</Link></li>
-              <li><Link to="/album3">Animals</Link></li>
-              <li><Link to="/album4">Arts &amp; Culture</Link></li>
-              <li><Link to="/album5">Food &amp; Drink</Link></li>
-              <li><Link to="/album6">Textures &amp; Patterns</Link></li>
+              {
+                this.state.data.map(function(album) {
+                  return (
+                    <li key={"albumLink" + album.id}>
+                      <Link to={"/album/" + album.id}></Link>
+                    </li>
+                  )
+                })
+              }
+              {/* <li><Link to="/album/1">Architecture</Link></li>
+              <li><Link to="/album/2">Nature</Link></li>
+              <li><Link to="/album/3">Animals</Link></li>
+              <li><Link to="/album/4">Arts &amp; Culture</Link></li>
+              <li><Link to="/album/5">Food &amp; Drink</Link></li>
+              <li><Link to="/album/6">Textures &amp; Patterns</Link></li> */}
             </ul>
           </div>
           <div id="albumPicturesList">

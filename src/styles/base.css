@@ -39,11 +39,15 @@ code {
   flex-direction: column;
   align-items: center;
   width: 33.33333vw;
+  height: 200px;
   margin: 20px 0;
-  cursor: pointer;
+  background-size: 100%;
+  background-position: center center;
 }
 
-.albumLinkContainer h6 {
+.albumLinkContainer a {
+  background-color: rgba(127, 127, 127, 0.7);
+  text-decoration: none;
   color: white;
   position: absolute;
   bottom: 0;
@@ -108,5 +112,5 @@ code {
 
 /* Picture Page styles */
 #pictureHeader {
-  
+
 }

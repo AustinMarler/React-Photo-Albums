@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 class Home extends Component {
@@ -7,12 +8,10 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:3002/').then(resp => {
-      console.log(resp);
+    axios.get('http://localhost:3001/albums?_embed=pictures').then(resp => {
       this.setState({
         data: resp.data
       })
-      console.log(this.state.data);
     })
   }
 
@@ -25,30 +24,15 @@ class Home extends Component {
           </div>
         </div>
         <div id="albumListContainer">
-          <div className="albumLinkContainer">
-            <img src="http://placehold.it/200/200" alt="" />
-            <h6>Architecture</h6>
-          </div>
-          <div className="albumLinkContainer">
-            <img src="http://placehold.it/200/200" alt="" />
-            <h6>Nature</h6>
-          </div>
-          <div className="albumLinkContainer">
-            <img src="http://placehold.it/200/200" alt="" />
-            <h6>Animals</h6>
-          </div>
-          <div className="albumLinkContainer">
-            <img src="http://placehold.it/200/200" alt="" />
-            <h6>Arts &amp; Culture</h6>
-          </div>
-          <div className="albumLinkContainer">
-            <img src="http://placehold.it/200/200" alt="" />
-            <h6>Food &amp; Drink</h6>
-          </div>
-          <div className="albumLinkContainer">
-            <img src="http://placehold.it/200/200" alt="" />
-            <h6>Textures &amp; Patterns</h6>
-          </div>
+          {
+            this.state.data.map(function(album) {
+              return (
+                <div key={"album" + album.id} className="albumLinkContainer" style={{backgroundImage: "url(" + album.pictures[0].url + ")"}}>
+                  <Link to={"/album/" + album.id}>{album.title}</Link>
+                </div>
+              )
+            })
+          }
         </div>
       </div>
     )
