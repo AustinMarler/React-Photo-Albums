@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { getAlbums } from '../actions/gallery';
 
 class Home extends Component {
   state = {
@@ -8,9 +8,9 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:3001/albums?_embed=pictures').then(resp => {
+    getAlbums().then(data => {
       this.setState({
-        data: resp.data
+        data: data
       })
     })
   }

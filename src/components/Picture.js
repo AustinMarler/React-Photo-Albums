@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { getPictures } from '../actions/gallery';
 
 class Picture extends Component {
   state = {
@@ -7,9 +7,9 @@ class Picture extends Component {
   }
 
   componentDidMount() {
-    axios.get(`http://localhost:3001/pictures/${this.props.match.params.id}`).then(resp => {
+    getPictures(this.props.match.params.id).then(data => {
       this.setState({
-        data: resp.data
+        data: data
       })
     })
   }

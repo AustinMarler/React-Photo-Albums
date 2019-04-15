@@ -1,29 +1,34 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { getAlbums } from '../actions/gallery';
 
 class Album extends Component {
   state = {
     data: [],
-    pictures: []
+    pictures: [],
+    albumTitle: ''
   }
 
   componentDidMount() {
-    axios.get(`http://localhost:3001/albums?_embed=pictures`).then(resp => {
+    getAlbums().then(data => {
       this.setState({
-        data: resp.data,
-        pictures: resp.data[this.props.match.params.id - 1].pictures
+        data: data,
+        pictures: data[this.props.match.params.id - 1].pictures,
+        albumTitle: data[this.props.match.params.id - 1].title
       })
     })
   }
 
-  componentWillReceiveProps() {
-    axios.get(`http://localhost:3001/albums?_embed=pictures`).then(resp => {
-      this.setState({
-        data: resp.data,
-        pictures: resp.data[this.props.match.params.id - 1].pictures
+  componentWillReceiveProps(newprops) {
+    const thisId = this.props.match.params.id;
+    if (newprops.match.params.id !== thisId) {
+      getAlbums().then(data => {
+        this.setState({
+          pictures: data[newprops.match.params.id - 1].pictures,
+          albumTitle: data[newprops.match.params.id - 1].title
+        })
       })
-    })
+    }
   }
   
   render() {
@@ -31,7 +36,7 @@ class Album extends Component {
       <div id="albumContainer">
         <div id="albumHeader">
           <div>
-            <h3>Album Name</h3>
+            <h3>{this.state.albumTitle}</h3>
           </div>
         </div>
         <div id="albumLowerContainer">
