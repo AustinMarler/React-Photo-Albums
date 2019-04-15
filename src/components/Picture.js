@@ -19,7 +19,8 @@ class Picture extends Component {
       <div id="pictureContainer">
         <div id="pictureHeader">
           <div>
-            <h3>Picture Name</h3>
+            <h3>{this.state.data.title}</h3>
+            <h6>by {this.state.data.author}</h6>
           </div>
         </div>
         <div id="pictureLowerContainer">

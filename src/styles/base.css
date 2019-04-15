@@ -41,8 +41,9 @@ code {
   width: 33.33333vw;
   height: 200px;
   margin: 20px 0;
-  background-size: 100%;
+  background-size: cover;
   background-position: center center;
+  background-repeat: no-repeat;
 }
 
 .albumLinkContainer a {
@@ -114,4 +115,8 @@ code {
 /* Picture Page styles */
 #picture img {
   width: 100vw;
+}
+
+#pictureHeader div h3, #pictureHeader div h6 {
+  text-align: center;
 }
