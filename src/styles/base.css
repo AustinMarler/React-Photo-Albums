@@ -62,7 +62,7 @@ code {
   display: flex;
   flex-direction: column;
   width: 250px;
-  background-color: #ff711e;
+  background-color: darkorange;
 }
 
 #albumLinksList ul {
@@ -119,4 +119,30 @@ code {
 
 #pictureHeader div h3, #pictureHeader div h6 {
   text-align: center;
+}
+
+#pictureLowerContainer {
+  position: relative;
+}
+
+.switchPictureButton {
+  width: 60px;
+  position: absolute;
+  background-color: rgba(127, 127, 127, 0.7);
+}
+
+.switchPictureButton a {
+  color: white;
+  font-size: 60px;
+  margin: 0;
+  text-decoration: none;
+}
+
+#buttonPrev {
+  left: 0;
+}
+
+#buttonNext {
+  top: 0;
+  right: 0;
 }
